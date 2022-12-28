@@ -78,7 +78,7 @@ class VaccinationSuccess extends Vaccine{
 			 c=sc.next().charAt(0);
 			 if(c=='y'|| c=='Y') {
 				 System.out.println("Booster dose vaccinated successfully!");
-				 System.out.println("Congratulations!!!!! You have not to pay any amount for booster dose.");
+				 
 			 }
 			 else {
 				 System.out.println("Please come after the completation of 3 months.");
