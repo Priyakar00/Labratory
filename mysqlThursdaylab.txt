@@ -1,0 +1,104 @@
+1. create table students(reg_no int primary key,name varchar(25)not null,branch varchar(25) not null,contact int,
+DOB date not null, joining date not null,address varchar(50) not null, email_id varchar(50) not null);
+ desc students;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| reg_no  | int         | NO   | PRI | NULL    |       |
+| name    | varchar(25) | NO   |     | NULL    |       |
+| branch  | varchar(50) | NO   |     | NULL    |       |
+| contact | int         | NO   |     | NULL    |       |
+| DOB     | date        | NO   |     | NULL    |       |
+| joining | date        | NO   |     | NULL    |       |
+| address | varchar(50) | NO   |     | NULL    |       |
+| email   | varchar(50) | NO   |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+
+2. insert into students values(100201, 'Priya', 'EIE', 83710, '2000-03-09', '2020-01-28', 'Bardhaman', 
+'priya@gmail.com'),(100202, 'Madhurima', 'ETC',91440, '1999-03-28', '2020-01-28', 'Durgapur', 'madhu@gmail.com'),(100203, 'Sweety', 'EIE', 95532, '1999-08-19', '2020-01-20', 'Bodgebodge', 'sweety@gmail.com'),(100204, 'Debjani', 'IT', 89097, '2001-01-21', '2019-01-20', 'Kolkata', 'debjani@gmail.com'),(100205, 'Amrita', 'ETCE', 78906, '1998-10-31', '2017-08-1
+0', 'Bardhaman', 'amrita@gmail.com');
+
+select * from students;
++--------+-----------+--------+---------+------------+------------+------------+-------------------+
+| reg_no | name      | branch | contact | DOB        | joining    | address    | email             |
++--------+-----------+--------+---------+------------+------------+------------+-------------------+
+| 100201 | Priya     | EIE    |   83710 | 2000-03-09 | 2020-01-28 | Bardhaman  | priya@gmail.com   |
+| 100202 | Madhurima | ETC    |   91440 | 1999-03-28 | 2020-01-28 | Durgapur   | madhu@gmail.com   |
+| 100203 | Sweety    | EIE    |   95532 | 1999-08-19 | 2020-01-20 | Bodgebodge | sweety@gmail.com  |
+| 100204 | Debjani   | IT     |   89097 | 2001-01-21 | 2019-01-20 | Kolkata    | debjani@gmail.com |
+| 100205 | Amrita    | ETCE   |   78906 | 1998-10-31 | 2017-08-01 | Bardhaman  | amrita@gmail.com  |
++--------+-----------+--------+---------+------------+------------+------------+-------------------+
+
+
+ 3. create table subject(subject_code int primary key, sub1 int not null, sub2 int not null, sub3 int not null, semester varchar(10) not null, reg_no int not
+ null, foreign key(reg_no) references students(reg_no));
+
+ desc subject;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| subject_code | int         | NO   | PRI | NULL    |       |
+| sub1         | int         | NO   |     | NULL    |       |
+| sub2         | int         | NO   |     | NULL    |       |
+| sub3         | int         | NO   |     | NULL    |       |
+| semester     | varchar(10) | NO   |     | NULL    |       |
+| reg_no       | int         | NO   | MUL | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+
+
+4. display a students information after updating his/her details.
+
+update students set joining='2022-12-12', email='debu@gmail.com', address='Kestopur' where reg_no=100204;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from students;
++--------+-----------+--------+---------+------------+------------+------------+------------------+
+| reg_no | name      | branch | contact | DOB        | joining    | address    | email            |
++--------+-----------+--------+---------+------------+------------+------------+------------------+
+| 100201 | Priya     | EIE    |   83710 | 2000-03-09 | 2020-01-28 | Bardhaman  | priya@gmail.com  |
+| 100202 | Madhurima | ETC    |   91440 | 1999-03-28 | 2020-01-28 | Durgapur   | madhu@gmail.com  |
+| 100203 | Sweety    | EIE    |   95532 | 1999-08-19 | 2020-01-20 | Bodgebodge | sweety@gmail.com |
+| 100204 | Debjani   | IT     |   89097 | 2001-01-21 | 2022-12-12 | Kestopur   | debu@gmail.com   |
+| 100205 | Amrita    | ETCE   |   78906 | 1998-10-31 | 2017-08-01 | Bardhaman  | amrita@gmail.com |
++--------+-----------+--------+---------+------------+------------+------------+------------------+
+
+
+
+ 5. select s.subject_code, p.reg_no, p.name, s.sub1, s.sub2, s.sub3, ((sub1+sub2+sub3)/3) as average_marks from students p inner join subject s on s.reg_no=p.reg_no;
++--------------+--------+-----------+------+------+------+---------------+
+| subject_code | reg_no | name      | sub1 | sub2 | sub3 | average_marks |
++--------------+--------+-----------+------+------+------+---------------+
+|          701 | 100201 | Priya     |   80 |   87 |   98 |       88.3333 |
+|          702 | 100202 | Madhurima |   90 |   85 |   90 |       88.3333 |
+|          703 | 100203 | Sweety    |   87 |   86 |   90 |       87.6667 |
+|          704 | 100204 | Debjani   |   95 |   86 |   85 |       88.6667 |
+|          705 | 100205 | Amrita    |   94 |   81 |   88 |       87.6667 |
++--------------+--------+-----------+------+------+------+---------------+
+5 rows in set (0.00 sec)
+
+
+
+ 7. select s.Subject_code,p.reg_No,p.name,(sub1+sub2+sub3) as Marks_Sum from students p inner join subject s on s.reg_No=p.reg_No where (s.sub1+s.sub2+s.sub3)>250;
++--------------+--------+-----------+-----------+
+| Subject_code | reg_No | name      | Marks_Sum |
++--------------+--------+-----------+-----------+
+|          701 | 100201 | Priya     |       265 |
+|          702 | 100202 | Madhurima |       265 |
+|          703 | 100203 | Sweety    |       263 |
+|          704 | 100204 | Debjani   |       266 |
+|          705 | 100205 | Amrita    |       263 |
++--------------+--------+-----------+-----------+
+
+
+
+8. select s.Subject_code,p.reg_No,p.name,s.sub1,s.sub2,s.sub3,((sub1+sub2+sub3)/3) as Average_Marks,(((sub1+sub2+sub3)/3)*100/100) as Percentage_Marks from students p inner join subject s on s.reg_No=p.reg_No;
++--------------+--------+-----------+------+------+------+---------------+------------------+
+| Subject_code | reg_No | name      | sub1 | sub2 | sub3 | Average_Marks | Percentage_Marks |
++--------------+--------+-----------+------+------+------+---------------+------------------+
+|          701 | 100201 | Priya     |   80 |   87 |   98 |       88.3333 |      88.33333333 |
+|          702 | 100202 | Madhurima |   90 |   85 |   90 |       88.3333 |      88.33333333 |
+|          703 | 100203 | Sweety    |   87 |   86 |   90 |       87.6667 |      87.66666667 |
+|          704 | 100204 | Debjani   |   95 |   86 |   85 |       88.6667 |      88.66666667 |
+|          705 | 100205 | Amrita    |   94 |   81 |   88 |       87.6667 |      87.66666667 |
++--------------+--------+-----------+------+------+------+---------------+------------------+
